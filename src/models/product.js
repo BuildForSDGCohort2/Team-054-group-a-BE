@@ -6,10 +6,15 @@ const {Schema} = mongoose
 const productModel  = new Schema({
     storeId:{
         type:Schema.Types.ObjectId, 
-        required: [true, "userId  is required"],
+        // required: [true, "userId  is required"],
         ref:"store"
     },
-    name:{
+    ownerId:{
+        type:Schema.Types.ObjectId, 
+        ref:"user",
+        required: [true],
+    },
+    productName:{
         type:String, 
         trim: true,
         required: [true, "name is required"],
@@ -17,7 +22,13 @@ const productModel  = new Schema({
     SKU:{
         type:String, 
         trim: true,
-        required: [true, "SKU is required"],
+        // required: [true, "SKU is required"],
+    },
+    status:{
+        type:String, 
+        enum:['available','sold'],
+        default:'available',
+        required: [true, "status is required"],
     },
     price:{
         type:Number, 
@@ -28,13 +39,11 @@ const productModel  = new Schema({
         type:Number, 
         trim: true,
         required: [true, "unit is required"],
-        default:0
     },
     stockQuantity:{
         type:Number, 
         trim: true,
         required: [true, "stockQuantity is required"],
-        default:0
     },
    
 },
